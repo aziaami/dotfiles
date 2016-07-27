@@ -11,10 +11,8 @@ To setup vim from scratch:
 
 1. Clone Vundle (vim plugin manager):
 
-'''bash
-# make sure you have git setup as vundle uses it to install plugins
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-'''
+    // make sure you have git setup as vundle uses it to install plugins
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 2. Get this great vimrc file: 
       
@@ -38,4 +36,6 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 ## zshrc
 
+--------
 
+- [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
