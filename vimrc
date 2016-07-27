@@ -1,7 +1,6 @@
-set exrc		" use .vimrc from pwd (if present)
-set secure		" only allow secure commands from local .vimrc
+" automatic reloading of .vimrc 
+autocmd! bufwritepost .vimrc source %
 
-let $PATH = '/Library/Frameworks/Python.framework/Versions/2.7/bin:'.$PATH
 """"""""""
 """ VUNDLE
 """"""""""
@@ -14,15 +13,14 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 " call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
+" let Vundle manage itself (required)
 Plugin 'gmarik/Vundle.vim'
 
-" code completion
-"Plugin 'Valloric/YouCompleteMe'
-" ColorScheme
-Plugin 'tomasr/molokai'
+" Plugins here ... 
+"Plugin 'Valloric/YouCompleteMe'    " code completion
+Plugin 'tomasr/molokai'             " color scheme
 
-" All of your Plugins must be added before the following line
+" All of your Plugins must be added before this line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -36,9 +34,8 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line ... 
-
-
 """""""""""""""""""""""""""""""""""
+set mouse=a             " enable use of mouse
 set clipboard=unnamed	" allow paste from mac clipboard
 
 """ SEARCH
@@ -54,16 +51,22 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 syntax enable
 syntax on
 
-set number			" show line numbers
-set showmatch		" show matching brackets
+set relativenumber  " show relative line numbers
+set number			" show absolute line number
+set showmatch		" show matching brackets [] {} ()
 
 set autoread		" reload changed files
 
 "set ruler
 set autoindent		" align new line indent with previous line
+set expandtab       " tab is replaced with spaces
 set tabstop=4		" number of spaces <TAB> counts for
-set softtabstop=4	" insert/delete 4 spaces with <TAB>
-set shiftwidth=4	" operation >> indents 4 columns; << unindents 4 columns
+set shiftwidth=4	" operation >> indents 4 spaces; << unindents 4 spaces
+
+" jump to end of line with ctrl-e in insert mode
+inoremap <C-e> <C-o>$
+" jump to start of line with ctrl-a in insert mode
+inoremap <C-a> <C-o>0
 
 """"""""""""""""""""""""""""""""""""
 " VIM UI
