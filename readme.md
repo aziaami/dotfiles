@@ -11,30 +11,29 @@ To setup vim from scratch:
 
 1. Clone Vundle (vim plugin manager):
 
-    // make sure you have git setup as vundle uses it to install plugins
-
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```bash
+# make sure you have git setup as vundle uses it to install plugins
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
 
 2. Get this great vimrc file: 
-      
-    // clone this repo
-    git clone git@github.com:aziaami/dotfiles.git ~/code/aziaami/dotfiles
-    
-    // backup the existing .vimrc file \
-    mv ~/.vimrc ~/.vimrc_OLD
-    
-    // copy over the repo vimrc
-    cp ~/code/aziaami/dotfiles/vimrc ~/.vimrc
+     
+```bash 
+# clone this repo
+git clone git@github.com:aziaami/dotfiles.git ~/code/aziaami/dotfiles
 
-3. Install the Plugins:
+# backup the existing .vimrc file
+mv ~/.vimrc ~/.vimrc_OLD
+    
+# copy over the repo vimrc
+cp ~/code/aziaami/dotfiles/vimrc ~/.vimrc
+```
 
-    touch ~/test.file
-    
-    vim ~/test.file
-    
-    // in vim type ... 
-    
-    :PluginInstall
+3. Install Plugins:
+
+   Launch `vim` and run `:PluginInstall`
+
+   To install from command line: `vim +PluginInstall +qall`
 
 ... this should complete successfully and you're now ready to go !
 
