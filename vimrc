@@ -17,8 +17,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Plugins here ... 
-"Plugin 'Valloric/YouCompleteMe'    " code completion
 Plugin 'tomasr/molokai'             " color scheme
+"Plugin 'Valloric/YouCompleteMe'    " code completion
 
 " All of your Plugins must be added before this line
 call vundle#end()            " required
