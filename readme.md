@@ -1,5 +1,5 @@
-My Mac's dot files
-==================
+My dot files
+============
 **Usage**
 
 **TODO**
