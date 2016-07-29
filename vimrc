@@ -18,7 +18,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Plugins here ... 
 Plugin 'tomasr/molokai'             " color scheme
-"Plugin 'Valloric/YouCompleteMe'    " code completion
+Plugin 'Valloric/YouCompleteMe'     " code completion
 
 " All of your Plugins must be added before this line
 call vundle#end()            " required
