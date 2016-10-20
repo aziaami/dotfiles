@@ -1,0 +1,25 @@
+[core]
+	excludesfile = /Users/aamiraziz/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = Aamir Aziz
+	email = aamiraziz7@gmail.com
+[diff]
+	external = /Users/aamiraziz/.git-diff.sh
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[format]
+	pretty = "Commit: %C(yellow)%H%nAuthor: %C(green)%aN <%aE>%nDate: (%C(red)%ar%Creset) %ai%nSubject: %s%n%n%b"
+[push]
+	default = simple
+[alias]
+    co = checkout
+    br = branch
+

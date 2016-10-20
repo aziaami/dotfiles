@@ -2,7 +2,12 @@
 
 * vimrc
 * zshrc
+* gitconfig
 
+These are 'dot' files (ie. hidden) that handle various application configs on my Mac. 
+
+TODO: Create a python (or bash) script that will set me up in one go !
+TODO: Test on a fresh Mac. Will it work on Linux ?
 -------
 
 ## vimrc 
@@ -69,6 +74,16 @@ Installing MacVim:
 
 ## zshrc
 
---------
+path `~/.zshrc`
 
 - [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
+
+--------
+
+## gitconfig
+
+- `~/.gitconfig` is where you set the config and settings of git.
+- `~/.git-diff.sh` is referenced in the `.gitconfig` and uses a command to start any diff tool.
+- `~/.gitignore_global` allows you to set which files are always ignored by git. 
+
+--------
