@@ -42,4 +42,4 @@
     # reset
     r1 = reset HEAD^         # reset to last commit (but keep changes - unstaged)
     rs = reset --soft HEAD^  # reset to last commit (but keep changes - staged)
-    rh = reset --hard HEAD^  # reset to last commit and destroy all changes. 
+    rh = reset --hard HEAD   # reset to last commit and destroy all changes. 
