@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/aamiraziz87/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -45,7 +45,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting)
+plugins=()
 
 # User configuration
 
@@ -84,13 +84,12 @@ alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 
 # The next line updates PATH for the Google Cloud SDK.
-source '~/google-cloud-sdk/path.zsh.inc'
-
+#source "$HOME/google-cloud-sdk/path.zsh.inc"
 # The next line enables shell command completion for gcloud.
-source '~/google-cloud-sdk/completion.zsh.inc'
+#source "$HOME/google-cloud-sdk/completion.zsh.inc"
 
 # Add environment variable for GoogleTest and GoogleMock
-export GTEST_ROOT=$HOME/code/aziaami/gtest
+#export GTEST_ROOT=$HOME/code/aziaami/gtest
 
 # Add environment variable for Boost
 export BOOST_VERSION=1.60.0
