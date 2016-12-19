@@ -76,6 +76,8 @@ Installing MacVim:
 
 path `~/.zshrc`
 
+This file allows for customisation of the zsh terminal shell. Useful items include plugins for git and syntax highlighting, aliases and exporting environment variables. 
+
 - [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
 
 --------
