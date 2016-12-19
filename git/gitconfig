@@ -20,6 +20,24 @@
 [push]
 	default = simple
 [alias]
-    co = checkout
+    st = status
+    ss = status -s 
+    aa = add --all
     br = branch
+    ba = branch -a
+    co = checkout
+    cl = clone
+    
+    # commit
+    cm = commit -m                      # commit with message
+    cma = commit -a -m                  # add all and commit with message
+    caa = commit -a --amend -C HEAD     # don't create a new commit, but instead add and checkin changes as part of the last commit. 
 
+    # log
+    ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+    fl = log -u
+
+    # reset
+    r1 = reset HEAD^         # reset to last commit (but keep changes - unstaged)
+    rs = reset --soft HEAD^  # reset to last commit (but keep changes - staged)
+    rh = reset --hard HEAD^  # reset to last commit and destroy all changes. 
