@@ -27,6 +27,7 @@
     br = branch
     ba = branch -a
     co = checkout
+    cob = checkout -b                   # create and move changes to a new branch = git checkout -b <new-branch>
     cl = clone
     
     # commit
@@ -43,3 +44,8 @@
     r1 = reset HEAD^         # reset to last commit (but keep changes - unstaged)
     rs = reset --soft HEAD^  # reset to last commit (but keep changes - staged)
     rh = reset --hard HEAD   # reset to last commit and destroy all changes. 
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
