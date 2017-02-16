@@ -70,6 +70,18 @@ set mouse=a         " enable use of mouse
 
 set clipboard=unnamed	  " allow paste from mac clipboard
 
+" save file
+nnoremap <leader>s :w<CR>
+" switch panes 
+nnoremap <leader>w <C-w>w
+" next buffer
+nnoremap <leader>b :bn<CR>
+
+" jump to end of line with ctrl-e in insert mode
+inoremap <C-e> <C-o>$
+" jump to start of line with ctrl-a in insert mode
+inoremap <C-a> <C-o>0
+
 " ================ Turn Off Swap Files ==============
 "
 set noswapfile
@@ -89,17 +101,7 @@ set ignorecase		" ignorecase when searching
 set smartcase		  " only works when ignorecase on
 
 " clear search highlights with <leader>n
-nnoremap <silent> <leader>n :nohlsearch<CR>	
-" switch panes 
-nnoremap <leader>w <C-w>w
-" next buffer
-nnoremap <leader>b :bn<CR>
-
-
-" jump to end of line with ctrl-e in insert mode
-inoremap <C-e> <C-o>$
-" jump to start of line with ctrl-a in insert mode
-inoremap <C-a> <C-o>0
+nnoremap <silent> <leader>n :nohlsearch<CR>
 
 " ================ Indentation ======================
 set autoindent		  " align new line indent with previous line
