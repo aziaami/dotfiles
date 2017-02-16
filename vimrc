@@ -33,6 +33,9 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'      " git status in nerdtree
 Plugin 'octol/vim-cpp-enhanced-highlight' " advanced C++ syntax highlighting
 Plugin 'ctrlpvim/ctrlp.vim'               " fuzzy finder
 Plugin 'airblade/vim-gitgutter'           " git diff open files
+Plugin 'godlygeek/tabular'                " most come before vim-markdown
+Plugin 'plasticboy/vim-markdown'          " .md syntax highlighting, matching and mappings
+Plugin 'JamshedVesuna/vim-markdown-preview' " preview markdown in the browser
 
 " All of your Plugins must be added before this line
 call vundle#end()            " required
@@ -118,17 +121,46 @@ set background=dark
 colorscheme molokai
 
 " =========== NERDTree =============
+" see: https://medium.com/@victormours/a-better-nerdtree-setup-3d3921abc0b9#.hulkzoakb
+"
 " Open NERDTree by deafult when we open vim
 "autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 | NERDTree | endif
 
 " Easily toggle NERDTree
-nnoremap <leader>f :NERDTreeToggle<Enter>
+nnoremap <leader>f :NERDTreeToggle<CR>
 
 " Easily open NerdTree on the file you’re editing
 nnoremap <silent> <leader>v :NERDTreeFind<CR>
 
-"============ GitGutter ============
+" =========== GitGutter ============
+"
 " Activate by defualt 
 let g:gitgutter_enabled=1
+
+" =========== CtrlP ================
+"
+" always open files in new buffers.
+let g:ctrlp_switch_buffer = 0
+" if we change the working directory CtrlP should respect that change.
+let g:ctrlp_working_path_mode = 0
+
+" =========== Markdown =============
+" disable the folding configuration
+let g:vim_markdown_folding_disabled = 1
+" prevent foldtext from being set
+let g:vim_markdown_override_foldtext = 0
+
+" use grip (https://github.com/joeyespo/grip) for GitHub flavoured Markdown
+" (https://help.github.com/categories/writing-on-github/) 
+" Note. grip must be installed (eg. on Mac use 'brew install grip')
+let vim_markdown_preview_github=1
+" remap vim-markdown-preview key bindins
+let vim_markdown_preview_hotkey='<leader>m'
+" use Google Chrome to preview markdown
+let vim_markdown_preview_browser='Google Chrome'
+" show images in preview
+let vim_markdown_preview_toggle=1
+" delete the generated html file once in the browser
+let vim_markdown_preview_temp_file=1
 
