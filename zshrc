@@ -96,8 +96,12 @@ export BOOST_VERSION=1.60.0
 export BOOST_ROOT=/usr/local/Cellar/boost/$BOOST_VERSION
 
 # Add cuda environment details
-export PATH=/Developer/NVIDIA/CUDA-7.5/bin:$PATH
-export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-7.5/lib:$DYLD_LIBRARY_PATH
+export CUDA_HOME=/usr/local/cuda
+export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
+export PATH="$CUDA_HOME/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Add environment variable for Google Test Framework
+export GTEST_DIR="${HOME}/code/aziaami/gtest/src/googletest"
 
