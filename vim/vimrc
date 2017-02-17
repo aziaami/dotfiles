@@ -1,4 +1,5 @@
-" alot taken from github.com/victormours/dotfiles
+" list of online vimrc used :
+" * github.com/victormours/dotfiles
 
 " automatic reloading of .vimrc 
 autocmd! bufwritepost .vimrc source %
@@ -8,8 +9,7 @@ autocmd! bufwritepost .vimrc source %
 set nocompatible
 filetype off        " required
 
-" The mapleader has to be set before vundle starts loading all
-" the plugins.
+" The mapleader has to be set before vundle starts loading plugins.
 let mapleader = "\<Space>"
 
 """"""""""
@@ -73,8 +73,6 @@ set mouse=a         " enable use of mouse
 
 set clipboard=unnamed	  " allow paste from mac clipboard
 
-" save file
-nnoremap <leader>s :w<CR>
 " switch panes 
 nnoremap <leader>w <C-w>w
 " next buffer
@@ -103,7 +101,7 @@ set hlsearch		  " highlight search things
 set ignorecase		" ignorecase when searching
 set smartcase		  " only works when ignorecase on
 
-" clear search highlights with <leader>n
+" quickly clear search highlights 
 nnoremap <silent> <leader>n :nohlsearch<CR>
 
 " ================ Indentation ======================
@@ -121,7 +119,7 @@ set background=dark
 colorscheme molokai
 
 " =========== NERDTree =============
-" see: https://medium.com/@victormours/a-better-nerdtree-setup-3d3921abc0b9#.hulkzoakb
+" https://medium.com/@victormours/a-better-nerdtree-setup-3d3921abc0b9#.hulkzoakb
 "
 " Open NERDTree by deafult when we open vim
 "autocmd StdinReadPre * let s:std_in=1
@@ -134,16 +132,14 @@ nnoremap <leader>f :NERDTreeToggle<CR>
 nnoremap <silent> <leader>v :NERDTreeFind<CR>
 
 " =========== GitGutter ============
-"
 " Activate by defualt 
 let g:gitgutter_enabled=1
 
 " =========== CtrlP ================
-"
 " always open files in new buffers.
-let g:ctrlp_switch_buffer = 0
+let g:ctrlp_switch_buffer = 1
 " if we change the working directory CtrlP should respect that change.
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 1
 
 " =========== Markdown =============
 " disable the folding configuration
@@ -164,3 +160,41 @@ let vim_markdown_preview_toggle=1
 " delete the generated html file once in the browser
 let vim_markdown_preview_temp_file=1
 
+" =========== clang-format =========
+" If 'clang-format' is not in PATH, specify its path
+"let g:clang_format_binary = '<absolute-path-to-clang-format>'
+
+" Use google c++ style: https://google.github.io/styleguide/cppguide.html
+" Default is to use the .clang-format file in the tree otherwise use fallback_style
+" let g:clang_format_style = 'file'
+" let g:clang_format_style = '{ BasedOnStyle: llvm, IndentWidth: 4 }'
+let g:clang_format_fallback_style = 'Google'
+
+" map key-shortcut for easy use
+nnoremap <leader>i :pyf ~/.vim/clang_format.py<CR>
+"inoremap <C-I> <ESC>:pyf  ~/.vim/clang_format.py<CR>i
+" =========== YouCompleteMe ========
+" See GitHub for documentation: https://github.com/Valloric/YouCompleteMe 
+" http://www.alexeyshmalko.com/2014/youcompleteme-ultimate-autocomplete-plugin-for-vim/
+"
+" For default options see here: https://github.com/Valloric/YouCompleteMe#options
+"
+" extras auto-completion file for C family - (we get these as minimum)
+" taken from https://github.com/rasendubi/dotfiles/blob/master/.vim/.ycm_extra_conf.py
+" more complete version: https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+" use first python executable found in PATH. Useful in a virtual environment - just
+" start vim in that directory to provide completions for packages in the virtual env.
+" https://github.com/Valloric/YouCompleteMe/blob/master/README.md#python-semantic-completion
+let g:ycm_python_binary_path = 'python'
+
+" automatically close the preview window.
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" add key mappings  
+" perform the 'most sensible' GoTo operation it can
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+" =================================
+" /END
