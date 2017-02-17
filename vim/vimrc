@@ -75,8 +75,14 @@ set clipboard=unnamed	  " allow paste from mac clipboard
 
 " switch panes 
 nnoremap <leader>w <C-w>w
-" next buffer
-nnoremap <leader>b :bn<CR>
+
+" list buffers
+nnoremap <leader>ls :ls<CR>
+" close the current buffer
+nnoremap <leader>bd :bn\|bd #<CR>
+" scrol next/previous buffers
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bp :bp<CR>
 
 " jump to end of line with ctrl-e in insert mode
 inoremap <C-e> <C-o>$
