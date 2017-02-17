@@ -142,10 +142,18 @@ nnoremap <silent> <leader>v :NERDTreeFind<CR>
 let g:gitgutter_enabled=1
 
 " =========== CtrlP ================
+" order matching files top to bottom
+let g:ctrlp_match_window = 'bottom,order:ttb'
+
 " always open files in new buffers.
 let g:ctrlp_switch_buffer = 1
 " if we change the working directory CtrlP should respect that change.
 let g:ctrlp_working_path_mode = 1
+
+" tell CtrlP to run an external command to find matching files
+" and use ag (must have this installed) to make things wicked fast !
+" see here: https://dougblack.io/words/a-good-vimrc.html#ctrlp-section
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 " =========== Markdown =============
 " disable the folding configuration
