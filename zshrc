@@ -88,9 +88,6 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 # The next line enables shell command completion for gcloud.
 #source "$HOME/google-cloud-sdk/completion.zsh.inc"
 
-# Add environment variable for GoogleTest and GoogleMock
-#export GTEST_ROOT=$HOME/code/aziaami/gtest
-
 # Add environment variable for Boost
 export BOOST_VERSION=1.60.0
 export BOOST_ROOT=/usr/local/Cellar/boost/$BOOST_VERSION
