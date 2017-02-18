@@ -36,6 +36,7 @@ Plugin 'airblade/vim-gitgutter'           " git diff open files
 Plugin 'godlygeek/tabular'                " most come before vim-markdown
 Plugin 'plasticboy/vim-markdown'          " .md syntax highlighting, matching and mappings
 Plugin 'JamshedVesuna/vim-markdown-preview' " preview markdown in the browser
+Plugin 'rdnetto/YCM-Generator'            " generate conf.py files for YCM 
 
 " All of your Plugins must be added before this line
 call vundle#end()            " required
@@ -96,7 +97,7 @@ set nobackup
 set nowb
 
 " OR store temporary files in a central location
-" as suggested here :
+" as suggested here : 
 "set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 "set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
@@ -108,7 +109,13 @@ set ignorecase		" ignorecase when searching
 set smartcase		  " only works when ignorecase on
 
 " quickly clear search highlights 
-nnoremap <silent> <leader>n :nohlsearch<CR>
+nnoremap <silent> <leader>nh :nohlsearch<CR>
+
+" ================ Replace ==========================
+"
+" replace all occurances of word under the cursor
+" http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor
+nnoremap <leader>sr :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 " ================ Indentation ======================
 set autoindent		  " align new line indent with previous line
@@ -117,7 +124,7 @@ set tabstop=2		    " number of spaces <TAB> counts for
 set shiftwidth=2    " operation >> indents 2 spaces; << unindents 2 spaces
 
 """"""""""""""""""""""""""""""""""""
-" VIM PLUGIN CONFIG
+" ====== VIM PLUGIN CONFIG =========
 """"""""""""""""""""""""""""""""""""
 "
 "" ========== UI colourscheme ======
@@ -132,10 +139,10 @@ colorscheme molokai
 autocmd VimEnter * if argc() == 0 | NERDTree | endif
 
 " Easily toggle NERDTree
-nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
 
 " Easily open NerdTree on the file you’re editing
-nnoremap <silent> <leader>v :NERDTreeFind<CR>
+nnoremap <silent> <leader>nf :NERDTreeFind<CR>
 
 " =========== GitGutter ============
 " Activate by defualt 
@@ -166,7 +173,7 @@ let g:vim_markdown_override_foldtext = 0
 " Note. grip must be installed (eg. on Mac use 'brew install grip')
 let vim_markdown_preview_github=1
 " remap vim-markdown-preview key bindins
-let vim_markdown_preview_hotkey='<leader>m'
+let vim_markdown_preview_hotkey='<leader>md'
 " use Google Chrome to preview markdown
 let vim_markdown_preview_browser='Google Chrome'
 " show images in preview
@@ -185,8 +192,9 @@ let vim_markdown_preview_temp_file=1
 let g:clang_format_fallback_style = 'Google'
 
 " map key-shortcut for easy use
-nnoremap <leader>i :pyf ~/.vim/clang_format.py<CR>
-"inoremap <C-I> <ESC>:pyf  ~/.vim/clang_format.py<CR>i
+nnoremap <leader>cf :pyf ~/.vim/clang_format.py<CR>
+"inoremap <C-I> <ESC>:pyf ~/.vim/clang_format.py<CR>i
+
 " =========== YouCompleteMe ========
 " See GitHub for documentation: https://github.com/Valloric/YouCompleteMe 
 " http://www.alexeyshmalko.com/2014/youcompleteme-ultimate-autocomplete-plugin-for-vim/
@@ -207,7 +215,7 @@ let g:ycm_python_binary_path = 'python'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
-" add key mappings  
+" add key mappings
 " perform the 'most sensible' GoTo operation it can
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 " =================================
