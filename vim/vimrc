@@ -12,6 +12,10 @@ filetype off        " required
 " The mapleader has to be set before vundle starts loading plugins.
 let mapleader = "\<Space>"
 
+" escape insert mode easily
+" http://vim.wikia.com/wiki/Avoid_the_escape_key
+imap <leader><tab> <Esc>
+
 """"""""""
 """ VUNDLE
 """"""""""
