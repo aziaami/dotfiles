@@ -1,5 +1,6 @@
 " list of online vimrc used :
 " * github.com/victormours/dotfiles
+" * github.com/alepez/dotfiles/tree/master/vim 
 
 " automatic reloading of .vimrc 
 autocmd! bufwritepost .vimrc source %
@@ -126,6 +127,12 @@ set autoindent		  " align new line indent with previous line
 set expandtab       " tab is replaced with spaces
 set tabstop=2		    " number of spaces <TAB> counts for
 set shiftwidth=2    " operation >> indents 2 spaces; << unindents 2 spaces
+
+" ================ Python Format ====================
+"
+" Automatically format the current python file using autopep8. 
+" You must have autopep8 installed for this to work.
+nnoremap <leader>pf :! autopep8 --in-place % <CR>
 
 """"""""""""""""""""""""""""""""""""
 " ====== VIM PLUGIN CONFIG =========
