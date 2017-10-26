@@ -21,6 +21,8 @@ imap <leader><tab> <Esc>
 """ VUNDLE
 """"""""""
 "
+" see Vundle documentation here: https://github.com/VundleVim/Vundle.vim
+"
 " set runtime path to include Vundle and initialise
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -42,6 +44,7 @@ Plugin 'godlygeek/tabular'                " most come before vim-markdown
 Plugin 'plasticboy/vim-markdown'          " .md syntax highlighting, matching and mappings
 Plugin 'JamshedVesuna/vim-markdown-preview' " preview markdown in the browser
 Plugin 'rdnetto/YCM-Generator'            " generate conf.py files for YCM 
+Plugin 'scrooloose/nerdcommenter'         " allows for easy commenting
 
 " All of your Plugins must be added before this line
 call vundle#end()            " required
@@ -131,8 +134,8 @@ set shiftwidth=2    " operation >> indents 2 spaces; << unindents 2 spaces
 " ================ Python Format ====================
 "
 " Automatically format the current python file using autopep8. 
-" You must have autopep8 installed for this to work.
-nnoremap <leader>pf :! autopep8 --in-place % <CR>
+" autopep8 must be installed. See  https://pypi.python.org/pypi/autopep8
+nnoremap <leader>pf :! autopep8 --in-place --aggressive % <CR>
 
 """"""""""""""""""""""""""""""""""""
 " ====== VIM PLUGIN CONFIG =========

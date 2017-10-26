@@ -52,6 +52,10 @@ plugins=()
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# do private oxbot stuff here
+# Note. make sure to ln -s PATH_TO_FILE  ~/.zshrc_oxbotica
+source $HOME/.zshrc_oxbotica
+
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -78,10 +82,13 @@ source $ZSH/oh-my-zsh.sh
 # aliases
 #
 # Use macvim as default
-alias vim="/usr/local/bin/mvim"
+#alias vim="/usr/local/bin/mvim"
 
+# zsh
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
+
+alias kernel3='source ~/py3_kernel/bin/activate'
 
 # The next line updates PATH for the Google Cloud SDK.
 #source "$HOME/google-cloud-sdk/path.zsh.inc"
@@ -100,5 +107,18 @@ export PATH="$CUDA_HOME/bin:$PATH"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Add environment variable for Google Test Framework
-export GTEST_DIR="${HOME}/code/aziaami/gtest/src/googletest"
+export GTEST_ROOT="${HOME}/code/aziaami/gtest"
+export GTEST_DIR="${GTEST_ROOT}/src/googletest"
+export GMOCK_DIR="${GTEST_ROOT}/src/googlemock"
 
+# Shrink video files using ffmpeg
+# Usage: movie_shrink full_original_name new_name_no_extension
+movie_shrink () {
+  ffmpeg -i "$1" -c:v libx264 -crf 33 -b:v 1M -c:a aac -strict -2 "$2".mp4
+}
+
+# Reduce the resoultion of an image using imagemagick
+# Usage: reduce_res original_image_path  new_image_path
+reduce_res () {
+  convert -density 300 -units PixelsPerInch $1 -resample 72 $2  
+}
