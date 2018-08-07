@@ -45,7 +45,9 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=()
+plugins=(ssh-agent)
+
+zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # User configuration
 
@@ -82,7 +84,7 @@ source $ZSH/oh-my-zsh.sh
 # aliases
 #
 # Use macvim as default
-#alias vim="/usr/local/bin/mvim"
+alias vim="/usr/local/bin/mvim"
 
 # zsh
 alias zshconfig="vim ~/.zshrc"
@@ -122,3 +124,5 @@ movie_shrink () {
 reduce_res () {
   convert -density 300 -units PixelsPerInch $1 -resample 72 $2  
 }
+
+export PYTHONPATH="${PYTHONPATH}:$HOME/code/aziaami/python-code"
