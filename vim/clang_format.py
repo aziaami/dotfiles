@@ -67,9 +67,7 @@ def main():
   if vim.eval('exists("l:lines")') == '1':
     lines = vim.eval('l:lines')
   else:
-    # lines = '%s:%s' % (vim.current.range.start + 1, vim.current.range.end + 1)
-    # by default format the entire file
-    lines = 'all'
+    lines = '%s:%s' % (vim.current.range.start + 1,vim.current.range.end + 1)
 
   # Determine the cursor position.
   cursor = int(vim.eval('line2byte(line("."))+col(".")')) - 2
