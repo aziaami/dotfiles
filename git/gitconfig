@@ -45,6 +45,10 @@
     r1 = reset HEAD^         # reset to last commit and unstage changes
     rs = reset --soft HEAD^  # reset to last commit (but keep changes - staged)
     rh = reset --hard HEAD   # reset to last commit and destroy all changes. 
+
+    # submodule
+    su = submodule update    
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
