@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /Users/aamiraziz/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -10,7 +10,7 @@
 	name  = Aamir Aziz
 	email = aamiraziz7@gmail.com
 [diff]
-	external = /Users/aamiraziz/.git-diff.sh
+	external = ~/.git-diff.sh
 [color]
 	diff = auto
 	status = auto
