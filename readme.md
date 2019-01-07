@@ -102,4 +102,6 @@ ln -s ~/code/aziaami/dotfiles/git/git-diff.sh ~/.git-diff.sh
 ln -s ~/code/aziaami/dotfiles/git/gitignore_global ~/.gitignore_global
 ```
 
+Note. if it appears like gitignore isn't working (i.e. `git diff` is showing files that should be ignored it's because you have to remove all tracked files and add them back in. See [here](http://blog.jonathanchannon.com/2012/11/18/gitignore-not-working-fixed/) for solution.
+
 --------
