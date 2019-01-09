@@ -98,6 +98,9 @@ inoremap <C-e> <C-o>$
 " jump to start of line with ctrl-a in insert mode
 inoremap <C-a> <C-o>0
 
+" copy file path to clipboard
+" https://vi.stackexchange.com/a/3687
+nnoremap <leader>c :let @+=expand('%:p')<CR>
 " ================ Turn Off Swap Files ==============
 "
 set noswapfile
@@ -201,19 +204,21 @@ let vim_markdown_preview_temp_file=1
 
 " Use google c++ style: https://google.github.io/styleguide/cppguide.html
 " Default is to use the .clang-format file in the tree otherwise use fallback_style
-" let g:clang_format_style = 'file'
+" Use -style=file to load style configuration from .clang-format file located in one of the parent directories of the source file (or current directory for stdin).
+let g:clang_format_style = 'file'
 " let g:clang_format_style = '{ BasedOnStyle: llvm, IndentWidth: 4 }'
 let g:clang_format_fallback_style = 'Google'
 
-" map key-shortcut for easy use
-" support for NORMAL and VISUAL
-map <leader>cf :pyf ~/.vim/clang_format.py<CR>
+" map key-shortcut for easy use Note that we are using the python3 script. See
+" https://gist.github.com/fasiha/8af2a4f719812319934947124bb63afd for details.
+" support for NORMAL and VISUAL modes
+map <leader>cf :py3f ~/.vim/clang_format.py<CR>
 " support for INSERT mode 
-"imap <C-I> <ESC>:pyf ~/.vim/clang_format.py<CR>i
+imap <C-I> <c-o>:py3f ~/.vim/clang_format.py<CR>
 
 :function  ClangFormatFile()
 :  let l:lines="all"
-:  pyf ~/.vim/clang_format.py
+:  py3f ~/.vim/clang_format.py
 :endfunction
 
 " NORMAL mode - clang-format all lines
