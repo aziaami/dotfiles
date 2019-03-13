@@ -31,6 +31,9 @@ Alternate method
  
 ... onto the actual Vim customisation ... 
 
+0. Install things needed by plugins 
+ - Ctrl-p plugin needs `brew install ag`
+
 1. Clone Vundle (vim plugin manager):
 
     ```bash
@@ -68,13 +71,16 @@ Alternate method
     Install CMake (preferably with Homebrew). If you have installed a Homebrew Python and/or Homebrew MacVim, see the [FAQ](http://valloric.github.io/YouCompleteMe/#faq) for details.
 
     Compiling YCM with semantic support for C-family languages:
-    
+ 
         ```bash
         cd ~/.vim/bundle/YouCompleteMe
         ./install.py --clang-completer
         ```
 
     That's it. You're done. Refer to the [User Guide section](http://valloric.github.io/YouCompleteMe/#user-guide) on how to use YCM. Don't forget that if you want the C-family semantic completion engine to work, you will need to provide the compilation flags for your project to YCM. It's all in the User Guide.
+
+4.1 YCM compilation flags for GoTo 
+
 --------
 
 ## zshrc

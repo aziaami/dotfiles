@@ -45,6 +45,7 @@ Plugin 'plasticboy/vim-markdown'          " .md syntax highlighting, matching an
 Plugin 'JamshedVesuna/vim-markdown-preview' " preview markdown in the browser
 Plugin 'rdnetto/YCM-Generator'            " generate conf.py files for YCM 
 Plugin 'scrooloose/nerdcommenter'         " allows for easy commenting
+Plugin 'tpope/vim-fugitive'               " vim-fugitive for git
 
 " All of your Plugins must be added before this line
 call vundle#end()            " required
@@ -89,6 +90,8 @@ nnoremap <leader>w <C-w>w
 nnoremap <leader>ls :ls<CR>
 " close the current buffer
 nnoremap <leader>bd :bn\|bd #<CR>
+" close all buffers except current
+nnoremap <leader>bdd :%bd|e#<CR>
 " scrol next/previous buffers
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
@@ -98,9 +101,42 @@ inoremap <C-e> <C-o>$
 " jump to start of line with ctrl-a in insert mode
 inoremap <C-a> <C-o>0
 
+" =================================
 " copy file path to clipboard
 " https://vi.stackexchange.com/a/3687
 nnoremap <leader>c :let @+=expand('%:p')<CR>
+
+" Copy filepaths to system clipboard. Commands from this post on StackOverflow : 
+" https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
+" copy current file name (relative/absolute) to system clipboard
+" MacOSX version
+if has("mac") || has("gui_macvim") || has("gui_mac")
+  " relative path  (src/foo.txt)
+  "nnoremap <leader>cf :let @*=expand("%")<CR>
+  " absolute path  (/something/src/foo.txt)
+  "nnoremap <leader>cF :let @*=expand("%:p")<CR>
+  " filename       (foo.txt)
+  "nnoremap <leader>ct :let @*=expand("%:t")<CR>
+  " directory name (/something/src)
+  "nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
+endif
+" Unix/Linux version
+if has("gui_gtk") || has("gui_gtk2") || has("gui_gnome") || has("unix")
+  " relative path (src/foo.txt)
+  "nnoremap <leader>cf :let @+=expand("%")<CR>
+  " absolute path (/something/src/foo.txt)
+  "nnoremap <leader>cF :let @+=expand("%:p")<CR>
+  " filename (foo.txt)
+  "nnoremap <leader>ct :let @+=expand("%:t")<CR>
+  " directory name (/something/src)
+  "nnoremap <leader>ch :let @+=expand("%:p:h")<CR>
+endif
+" =================================
+
+" Ensure Quickfix window always on the bottom and
+" taking the whole horizontal space.
+autocmd FileType qf wincmd J
+
 " ================ Turn Off Swap Files ==============
 "
 set noswapfile
@@ -140,6 +176,32 @@ set shiftwidth=2    " operation >> indents 2 spaces; << unindents 2 spaces
 " autopep8 must be installed. See  https://pypi.python.org/pypi/autopep8
 nnoremap <leader>pf :! autopep8 --in-place --aggressive % <CR>
 
+" ======= Display output of Shell Command  ==========
+"
+" Copy the output of any Shell command into a Scratch buffer.
+" Usage :Shell ls-al
+" http://vim.wikia.com/wiki/Display_output_of_shell_commands_in_new_window
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, 'You entered:    ' . a:cmdline)
+  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  1
+endfunction
+
 """"""""""""""""""""""""""""""""""""
 " ====== VIM PLUGIN CONFIG =========
 """"""""""""""""""""""""""""""""""""
@@ -164,6 +226,25 @@ nnoremap <silent> <leader>nf :NERDTreeFind<CR>
 " =========== GitGutter ============
 " Activate by defualt 
 let g:gitgutter_enabled=1
+
+" =========== VimFugitive ==========
+" fugitive git bindings
+" https://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/cgciltz
+nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gt :Gcommit -v -q %:p<CR>
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gw :Gwrite<CR><CR>
+nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <leader>gp :Ggrep<Space>
+nnoremap <leader>gm :Gmove<Space>
+nnoremap <leader>gbr :Git branch<Space>
+nnoremap <leader>gco :Git checkout<Space>
+nnoremap :gpush :Dispatch! git push<CR>
+nnoremap :gpull :Dispatch! git pull<CR>
 
 " =========== CtrlP ================
 " order matching files top to bottom
@@ -197,6 +278,11 @@ let vim_markdown_preview_browser='Google Chrome'
 let vim_markdown_preview_toggle=1
 " delete the generated html file once in the browser
 let vim_markdown_preview_temp_file=1
+
+
+" =========== python ===============
+
+let g:pymode_python = 'python3'
 
 " =========== clang-format =========
 " If 'clang-format' is not in PATH, specify its path
@@ -248,29 +334,4 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " perform the 'most sensible' GoTo operation it can
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 " =================================
-" Copy filepaths to system clipboard. Commands from this post on StackOverflow : 
-" https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
-" copy current file name (relative/absolute) to system clipboard
-if has("mac") || has("gui_macvim") || has("gui_mac")
-  " relative path  (src/foo.txt)
-  "nnoremap <leader>cf :let @*=expand("%")<CR>
-  " absolute path  (/something/src/foo.txt)
-  nnoremap <leader>cF :let @*=expand("%:p")<CR>
-  " filename       (foo.txt)
-  "nnoremap <leader>ct :let @*=expand("%:t")<CR>
-  " directory name (/something/src)
-  "nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
-endif
-" copy current file name (relative/absolute) to system clipboard (Linux version)
-if has("gui_gtk") || has("gui_gtk2") || has("gui_gnome") || has("unix")
-  " relative path (src/foo.txt)
-  "nnoremap <leader>cf :let @+=expand("%")<CR>
-  " absolute path (/something/src/foo.txt)
-  "nnoremap <leader>cF :let @+=expand("%:p")<CR>
-  " filename (foo.txt)
-  "nnoremap <leader>ct :let @+=expand("%:t")<CR>
-  " directory name (/something/src)
-  "nnoremap <leader>ch :let @+=expand("%:p:h")<CR>
-endif
-
 " /END
