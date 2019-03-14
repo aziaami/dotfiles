@@ -91,7 +91,7 @@ nnoremap <leader>ls :ls<CR>
 " close the current buffer
 nnoremap <leader>bd :bn\|bd #<CR>
 " close all buffers except current
-nnoremap <leader>bdd :%bd|e#<CR>
+nnoremap <leader>bdd :%bd<CR>
 " scrol next/previous buffers
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
