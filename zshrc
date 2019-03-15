@@ -92,14 +92,9 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 
 alias kernel3='source ~/py3_kernel/bin/activate'
 
-# The next line updates PATH for the Google Cloud SDK.
-#source "$HOME/google-cloud-sdk/path.zsh.inc"
-# The next line enables shell command completion for gcloud.
-#source "$HOME/google-cloud-sdk/completion.zsh.inc"
-
 # Add environment variable for Boost
-export BOOST_VERSION=1.60.0
-export BOOST_ROOT=/usr/local/Cellar/boost/$BOOST_VERSION
+export BOOST_VERSION=1.64.0
+export BOOST_ROOT=/usr/local/Cellar/boost/${BOOST_VERSION}
 
 # Add cuda environment details
 export CUDA_HOME=/usr/local/cuda
