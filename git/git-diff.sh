@@ -7,3 +7,6 @@
 
 # use macvim
 mvim -d "$2" "$5" | cat
+
+#git diff --no-ext-diff --color --w  
+#diff --normal $2 $5
