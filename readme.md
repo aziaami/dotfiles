@@ -55,7 +55,7 @@ Alternate method
     mv ~/.vimrc ~/.vimrc_OLD
         
     # create a symlink to the vimrc file
-    ln -s ~/code/dotfiles/vimrc ~/.vimrc
+    ln -s ~/code/dotfiles/vim/vimrc ~/.vimrc
     ```
 3. Install Plugins:
     Launch `vim` and run `:PluginInstall`
