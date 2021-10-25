@@ -231,7 +231,7 @@ let g:gitgutter_enabled=1
 " fugitive git bindings
 " https://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/cgciltz
 nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gs :Git<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
 nnoremap <leader>gt :Gcommit -v -q %:p<CR>
 nnoremap <leader>gd :Gvdiff<CR>
