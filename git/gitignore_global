@@ -9,3 +9,4 @@ CMakeLists.txt.user
 cmake-build-debug
 compile_commands.json
 tags
+.cache
