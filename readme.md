@@ -89,6 +89,7 @@ The `~/.zshrc` file allows for customisation of the zsh shell. Useful items incl
 
 To setup from scratch - follow the installation instructions here : [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh) 
 
+- See here for summary of zsh files : [macOS - ZSH: .zprofile, .zshrc, .zlogin - What goes where? - Ask Different](https://apple.stackexchange.com/a/388623)
 - [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
 
 --------
