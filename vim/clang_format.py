@@ -2,8 +2,8 @@
 # - Change 'binary' if clang-format is not on the path (see below).
 # - Add to your .vimrc:
 #
-#   map <C-I> :py3f <path-to-this-file>/clang-format.py<cr>
-#   imap <C-I> <c-o>:py3f <path-to-this-file>/clang-format.py<cr>
+#   map <C-I> :pyf <path-to-this-file>/clang-format.py<cr>
+#   imap <C-I> <c-o>:pyf <path-to-this-file>/clang-format.py<cr>
 #
 # The first line enables clang-format for NORMAL and VISUAL mode, the second
 # line adds support for INSERT mode. Change "C-I" to another binding if you
@@ -20,12 +20,12 @@
 # like:
 # :function FormatFile()
 # :  let l:lines="all"
-# :  py3f <path-to-this-file>/clang-format.py
+# :  pyf <path-to-this-file>/clang-format.py
 # :endfunction
 #
 # It operates on the current, potentially unsaved buffer and does not create
 # or save any files. To revert a formatting, just undo.
-from __future__ import print_function
+from __future__ import absolute_import, division, print_function
 
 import difflib
 import json
@@ -45,9 +45,6 @@ if vim.eval('exists("g:clang_format_path")') == "1":
 # a '.clang-format' or '_clang-format' file to indicate the style that should be
 # used.
 style = 'file'
-if vim.eval('exists("g:clang_format_style")') == "1":
-  style = vim.eval('g:clang_format_style')
-
 fallback_style = 'Google'
 if vim.eval('exists("g:clang_format_fallback_style")') == "1":
   fallback_style = vim.eval('g:clang_format_fallback_style')
@@ -65,9 +62,20 @@ def main():
 
   # Determine range to format.
   if vim.eval('exists("l:lines")') == '1':
-    lines = vim.eval('l:lines')
+    lines = ['-lines', vim.eval('l:lines')]
+  elif vim.eval('exists("l:formatdiff")') == '1':
+    with open(vim.current.buffer.name, 'r') as f:
+      ondisk = f.read().splitlines();
+    sequence = difflib.SequenceMatcher(None, ondisk, vim.current.buffer)
+    lines = []
+    for op in reversed(sequence.get_opcodes()):
+      if op[0] not in ['equal', 'delete']:
+        lines += ['-lines', '%s:%s' % (op[3] + 1, op[4])]
+    if lines == []:
+      return
   else:
-    lines = '%s:%s' % (vim.current.range.start + 1,vim.current.range.end + 1)
+    lines = ['-lines', '%s:%s' % (vim.current.range.start + 1,
+                                  vim.current.range.end + 1)]
 
   # Determine the cursor position.
   cursor = int(vim.eval('line2byte(line("."))+col(".")')) - 2
@@ -83,9 +91,11 @@ def main():
     startupinfo.wShowWindow = subprocess.SW_HIDE
 
   # Call formatter.
-  command = [binary, '-style', style, '-cursor', str(cursor)]
-  if lines != 'all':
-    command.extend(['-lines', lines])
+  command = [binary, '-cursor', str(cursor)]
+  if lines != ['-lines', 'all']:
+    command += lines
+  if style:
+    command.extend(['-style', style])
   if fallback_style:
     command.extend(['-fallback-style', fallback_style])
   if vim.current.buffer.name:
@@ -110,7 +120,7 @@ def main():
     lines = lines[1:]
     sequence = difflib.SequenceMatcher(None, buf, lines)
     for op in reversed(sequence.get_opcodes()):
-      if op[0] is not 'equal':
+      if op[0] != 'equal':
         vim.current.buffer[op[1]:op[2]] = lines[op[3]:op[4]]
     if output.get('IncompleteFormat'):
       print('clang-format: incomplete (syntax errors)')
