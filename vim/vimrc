@@ -10,6 +10,9 @@ autocmd! bufwritepost .vimrc source %
 set nocompatible
 filetype off        " required
 
+" enable backspace
+set bs=2
+
 " The mapleader has to be set before vundle starts loading plugins.
 let mapleader = "\<Space>"
 
@@ -34,7 +37,6 @@ Plugin 'gmarik/Vundle.vim'
 
 " Plugins here ... 
 Plugin 'tomasr/molokai'                   " color scheme
-Plugin 'Valloric/YouCompleteMe'           " code completion
 Plugin 'scrooloose/nerdtree'              " tree explorer
 Plugin 'Xuyuanp/nerdtree-git-plugin'      " git status in nerdtree
 Plugin 'octol/vim-cpp-enhanced-highlight' " advanced C++ syntax highlighting
@@ -43,9 +45,10 @@ Plugin 'airblade/vim-gitgutter'           " git diff open files
 Plugin 'godlygeek/tabular'                " most come before vim-markdown
 Plugin 'plasticboy/vim-markdown'          " .md syntax highlighting, matching and mappings
 Plugin 'JamshedVesuna/vim-markdown-preview' " preview markdown in the browser
-Plugin 'rdnetto/YCM-Generator'            " generate conf.py files for YCM 
 Plugin 'scrooloose/nerdcommenter'         " allows for easy commenting
 Plugin 'tpope/vim-fugitive'               " vim-fugitive for git
+Plugin 'Valloric/YouCompleteMe'           " code completion
+"Plugin 'rdnetto/YCM-Generator'            " generate conf.py files for YCM 
 
 " All of your Plugins must be added before this line
 call vundle#end()            " required
@@ -165,6 +168,7 @@ nnoremap <silent> <leader>nh :nohlsearch<CR>
 nnoremap <leader>sr :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 " ================ Indentation ======================
+"
 set autoindent		  " align new line indent with previous line
 set expandtab       " tab is replaced with spaces
 set tabstop=2		    " number of spaces <TAB> counts for
@@ -279,9 +283,7 @@ let vim_markdown_preview_toggle=1
 " delete the generated html file once in the browser
 let vim_markdown_preview_temp_file=1
 
-
 " =========== python ===============
-
 let g:pymode_python = 'python3'
 
 " =========== clang-format =========
@@ -290,7 +292,8 @@ let g:pymode_python = 'python3'
 
 " Use google c++ style: https://google.github.io/styleguide/cppguide.html
 " Default is to use the .clang-format file in the tree otherwise use fallback_style
-" Use -style=file to load style configuration from .clang-format file located in one of the parent directories of the source file (or current directory for stdin).
+" Use -style=file to load style configuration from .clang-format file located 
+" in one of the parent directories of the source file (or current directory for stdin).
 let g:clang_format_style = 'file'
 " let g:clang_format_style = '{ BasedOnStyle: llvm, IndentWidth: 4 }'
 let g:clang_format_fallback_style = 'Google'
@@ -316,6 +319,11 @@ nmap <leader>cff :call ClangFormatFile()<CR>
 "
 " For default options see here: https://github.com/Valloric/YouCompleteMe#options
 "
+"" Let clangd fully control code completion
+let g:ycm_clangd_uses_ycmd_caching = 0
+" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
+let g:ycm_clangd_binary_path = exepath("clangd")
+
 " extras auto-completion file for C family - (we get these as minimum)
 " taken from https://github.com/rasendubi/dotfiles/blob/master/.vim/.ycm_extra_conf.py
 " more complete version: https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
