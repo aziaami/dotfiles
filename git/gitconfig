@@ -9,6 +9,7 @@
 [user]
 	name  = Aamir Aziz
 	email = aamiraziz7@gmail.com
+	email = aamir@oxbotica.com
 [diff]
 	external = ~/.git-diff.sh
 [color]

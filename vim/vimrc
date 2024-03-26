@@ -11,6 +11,7 @@ set nocompatible
 filetype off        " required
 
 " enable backspace
+" https://chrisjean.com/fix-backspace-in-vim/
 set bs=2
 
 " The mapleader has to be set before vundle starts loading plugins.
@@ -47,8 +48,13 @@ Plugin 'plasticboy/vim-markdown'          " .md syntax highlighting, matching an
 Plugin 'JamshedVesuna/vim-markdown-preview' " preview markdown in the browser
 Plugin 'scrooloose/nerdcommenter'         " allows for easy commenting
 Plugin 'tpope/vim-fugitive'               " vim-fugitive for git
+Plugin 'rbong/vim-flog'                   " git branch viewer
 Plugin 'Valloric/YouCompleteMe'           " code completion
 "Plugin 'rdnetto/YCM-Generator'            " generate conf.py files for YCM 
+Plugin 'tpope/vim-dispatch'               " async build and test dispatcher 
+Plugin 'ilyachur/cmake4vim'               " cmake integration for vim
+Plugin 'vim-airline/vim-airline'          " Lean & mean status/tabline that's light as air.
+Plugin 'psf/black'                        " Black python code formatter
 
 " All of your Plugins must be added before this line
 call vundle#end()            " required
@@ -176,9 +182,15 @@ set shiftwidth=2    " operation >> indents 2 spaces; << unindents 2 spaces
 
 " ================ Python Format ====================
 "
+" Update 01/09/2023 : Use Black instead
+" (https://black.readthedocs.io/en/stable/index.html) 
+nnoremap <leader>pf :Black<CR>
+
+let g:black_use_virtualenv = 0
+
 " Automatically format the current python file using autopep8. 
 " autopep8 must be installed. See  https://pypi.python.org/pypi/autopep8
-nnoremap <leader>pf :! autopep8 --in-place --aggressive % <CR>
+"nnoremap <leader>pf :! autopep8 --in-place --aggressive % <CR>
 
 " ======= Display output of Shell Command  ==========
 "
@@ -332,7 +344,7 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 " use first python executable found in PATH. Useful in a virtual environment - just
 " start vim in that directory to provide completions for packages in the virtual env.
 " https://github.com/Valloric/YouCompleteMe/blob/master/README.md#python-semantic-completion
-let g:ycm_python_binary_path = 'python'
+let g:ycm_python_binary_path = 'python3'
 
 " automatically close the preview window.
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -341,5 +353,11 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " add key mappings
 " perform the 'most sensible' GoTo operation it can
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
+" =========== cmake4vim  ========
+let g:cmake_build_executor='dispatch'
+let g:cmake_src_dir='~/code/selenium-all/src'
+let g:cmake_build_dir='~/code/selenium-all/build'
+let g:cmake_usr_args='-GNinja'
+" 
 " =================================
 " /END

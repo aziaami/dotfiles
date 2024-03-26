@@ -5,8 +5,8 @@
 
 # /usr/bin/opendiff "$2" "$5" -merge "$1"
 
-# use macvim
-mvim -d "$2" "$5" | cat
+# use vim
+vim -d "$2" "$5" | cat
 
 #git diff --no-ext-diff --color --w  
 #diff --normal $2 $5
