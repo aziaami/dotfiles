@@ -1,17 +1,20 @@
 [core]
 	excludesfile = ~/.gitignore_global
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [user]
 	name  = Aamir Aziz
 	email = aamiraziz7@gmail.com
-	email = aamir@oxbotica.com
+	email = aamir@oxa.tech
 [diff]
-	external = ~/.git-diff.sh
+  # https://stackoverflow.com/a/3713865
+	tool = vimdiff
+[difftool]
+	prompt = false
+[merge]
+  # https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
+  tool = vimdiff
+  conflictstyle = diff3
+[mergetool]
+	prompt = false
 [color]
 	diff = auto
 	status = auto
@@ -49,6 +52,10 @@
 
     # submodule
     su = submodule update    
+
+    # difftool 
+	  d = difftool
+	  m = mergetool
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
