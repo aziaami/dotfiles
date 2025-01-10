@@ -55,6 +55,8 @@ Plugin 'tpope/vim-dispatch'               " async build and test dispatcher
 Plugin 'ilyachur/cmake4vim'               " cmake integration for vim
 Plugin 'vim-airline/vim-airline'          " Lean & mean status/tabline that's light as air.
 Plugin 'psf/black'                        " Black python code formatter
+Plugin 'jremmen/vim-ripgrep'              " Use RipGrep for code search (brew install ripgrep) 
+Plugin 'gergap/vim-ollama'                " Ollama based LLMs
 
 " All of your Plugins must be added before this line
 call vundle#end()            " required
@@ -91,6 +93,10 @@ set scrolloff=3     " Keep 3 lines below and above the cursor
 set mouse=a         " enable use of mouse
 
 set clipboard=unnamed	  " allow paste from mac clipboard
+
+" Use Vim's spell checker
+" Note. not advised for coding as too many things are flagged.
+"setlocal spell
 
 " switch panes 
 nnoremap <leader>w <C-w>w
@@ -180,12 +186,31 @@ set expandtab       " tab is replaced with spaces
 set tabstop=2		    " number of spaces <TAB> counts for
 set shiftwidth=2    " operation >> indents 2 spaces; << unindents 2 spaces
 
+
+" ================ Terminal  ======================
+"
+" See https://vimhelp.org/terminal.txt.html or type :help terminal for more info.
+" from https://gist.github.com/mahemoff/8967b5de067cffc67cec174cb3a9f49d#file-readme-md
+"
+" vim-powered terminal in split window
+map <Leader>t :term ++close<cr>
+tmap <Leader>t <c-w>:term ++close<cr>
+
+" vim-powered terminal in new tab
+map <Leader>T :tab term ++close<cr>
+tmap <Leader>T <c-w>:tab term ++close<cr>
+
 " ================ Python Format ====================
 "
-" Update 01/09/2023 : Use Black instead
-" (https://black.readthedocs.io/en/stable/index.html) 
+" See https://black.readthedocs.io/en/stable/integrations/editors.html#vim
+
+" Note. :Black formats the whole file
 nnoremap <leader>pf :Black<CR>
 
+" 1 (default) = On first run, the plugin creates its own virtualenv using 
+"               the right Python version and automatically installs Black. 
+"               Upgrade it by calling :BlackUpgrade and restarting Vim.
+" 0 =  use the system installation of Black rather than a virtualenv
 let g:black_use_virtualenv = 0
 
 " Automatically format the current python file using autopep8. 
@@ -195,7 +220,8 @@ let g:black_use_virtualenv = 0
 " ======= Display output of Shell Command  ==========
 "
 " Copy the output of any Shell command into a Scratch buffer.
-" Usage :Shell ls-al
+" Usage :Shell <COMMAND>
+" Example :Shell ls -al 
 " http://vim.wikia.com/wiki/Display_output_of_shell_commands_in_new_window
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 
@@ -357,7 +383,57 @@ nnoremap <leader>jd :YcmCompleter GoTo<CR>
 let g:cmake_build_executor='dispatch'
 let g:cmake_src_dir='~/code/selenium-all/src'
 let g:cmake_build_dir='~/code/selenium-all/build'
-let g:cmake_usr_args='-GNinja'
+let g:cmake_usr_args='--preset=default -GNinja'
 " 
+" =========== vim-ripgrep =========
+" see https://github.com/jremmen/vim-ripgrep
+
+let g:rg_binary='rg'           " path to ripgrep
+let g:rg_format='%f:%l:%c:%m'  " value of grepformat
+"g:rg_command	g:rg_binary --vimgrep	search command
+let g:rg_highlight = 1         " true if you want matches highlighted
+let g:rg_derive_root = 1 	     " true if you want to find project root from cwd
+"g:rg_root_types	['.git']	list of files/dir found in project root
+"g:rg_window_location	botright	quickfix window location
+
+" =========== vim-ollama ==========
+let g:ollama_enabled = 1
+let g:ollama_host = 'http://127.0.0.1:11434'
+
+" troubleshooting
+let g:ollama_debug = 1
+let g:ollama_logfile = '/tmp/vim-ollama.log'
+
+" Default chat model - The LLM for interactive conversations.
+let g:ollama_chat_model = 'llama3.3'
+"let g:ollama_chat_model = 'deepseek-coder-v2:16b'
+
+" g:ollama_model = The LLM for code completions.
+
+" Codellama models
+"let g:ollama_model = 'codellama:7b'
+"let g:ollama_fim_prefix = '<PRE>'
+"let g:ollama_fim_suffix = '<SUF>'
+"let g:ollama_fim_middle = '<MID>'
+
+" Codegemma (small and fast)
+let g:ollama_model = 'codegemma:2b-code'
+let g:ollama_fim_prefix = '<|fim_prefix|>'
+let g:ollama_fim_middle = '<|fim_middle|>'
+let g:ollama_fim_suffix = '<|fim_suffix|>'
+
+let g:ollama_model_options = {
+      \ 'temperature': 0,
+      \ 'top_p': 0.9,
+      \ 'num_predict': 128,
+      \ 'stop': ['<|file_separator|>']
+      \ }
+
+" Deepseek-coder-v2
+"let g:ollama_model = 'deepseek-coder-v2'
+"let g:ollama_fim_prefix = '<｜fim▁begin｜>'
+"let g:ollama_fim_suffix = '<｜fim▁hole｜>'
+"let g:ollama_fim_middle = '<｜fim▁end｜>'
+
 " =================================
 " /END
