@@ -1,5 +1,6 @@
 *~
 .DS_Store
+.vscode
 *.swp
 CMakeLists.txt.user
 .ycm_extra_conf.py
